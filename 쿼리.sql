@@ -4,8 +4,8 @@
 */
 -- DDL
 CREATE TABLE t_test(
- 	id BIGINT UNSIGNED AUTO_INCREMENT
- , nm VARCHAR(100) NOT NULL
+ 	id BIGINT UNSIGNED AUTO_INCREMENT -- 1씩 늘리겟다.
+ , nm VARCHAR(100) NOT NULL -- 의미가 없는 키 - 대리키(id) - 변경할수없는 키  의미가 있는키-자연키(비지니스키)(변경가능한키)
  , jumin CHAR(9) NOT null
  , age INT NOT NULL
  , addr VARCHAR(200)

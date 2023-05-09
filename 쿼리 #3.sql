@@ -3,10 +3,10 @@ CREATE DATABASE exam;
 DROP TABLE person;
 
 CREATE TABLE person (
-	person_id INT UNSIGNED
+	person_id INT UNSIGNED  -- 양수만 쓰겟다.
 	,fname VARCHAR(20)
 	,lname VARCHAR(20)
-	,eye_color CHAR(2) CHECK(eye_color IN ('BR', 'BL', 'GR'))
+	,eye_color CHAR(2) CHECK(eye_color IN ('BR', 'BL', 'GR')) -- check 는 제약조건을 건다.
 	-- eye_color CHAR(2) ENUM('BR', 'BL', 'GR')
 	,birth_date DATE
 	,street VARCHAR(20)

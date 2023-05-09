@@ -10,6 +10,5 @@ ORDER BY rental_date DESC;
 
 DESC rental;
 
-
 SELECT B.customer_id, B.first_name, B.last_name
 FROM customer B;

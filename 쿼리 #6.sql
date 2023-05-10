@@ -8,3 +8,7 @@ ORDER BY actor_id DESC, film_id ASC;
 select rental_id, rental_date, return_date, customer_id
 FROM rental
 WHERE staff_id = 1;
+
+
+SELECT* FROM actor
+WHERE actor_id = 1; 

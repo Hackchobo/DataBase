@@ -22,6 +22,16 @@ OR (rating = 'PG-13' and rental_duration < 4);
 -- group function 그룹함수
 -- sum, avg, min, max, count
 SELECT * FROM customer;
+SELECT store_id, COUNT(*)  FROM customer
+GROUP BY store_id -- 레코드를 제외시키고 싶을때
+HAVING COUNT(*) < 300; -- 그룹을 제외 시키고싶을때
+
+-- amount는 판매금액, 직원별 평균 판매금액 알고 싶다.
+SELECT concat(B.first_name,' ',B.last_name) AS '네년의 이름',SUM(A.amount),Avg(A.amount)
+FROM payment A
+INNER JOIN staff B
+ON A.staff_id = B.staff_id
+GROUP BY A.staff_id;
 
 SELECT COUNT(*), SUM(active)
 , COUNT(*) - SUM(active)

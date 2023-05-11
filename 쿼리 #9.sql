@@ -8,6 +8,7 @@ WHERE last_name LIKE '_A_T%S';
 -- 고객 중에 이메일값이 다섯째에 . 이있고 13번째 @인 사람
 SELECT *
 FROM customer
+-- where email like '____.________@%'
 WHERE email LIKE '____.%' AND mid(email, 13,1) = '@';
 
 -- 이메일이 Q, Y로 시작하는 사람들 알고 싶어.
@@ -187,6 +188,6 @@ SELECT address FROM address
 WHERE city_id IN (
 	SELECT city_id FROM address
 	GROUP BY city_id
-	HAVING COUNT(*) > 1
+	HAVING COUNT(1) > 1
 );
 

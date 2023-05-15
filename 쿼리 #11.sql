@@ -24,7 +24,7 @@ from
 	select customer_id, COUNT(1) cnt
 	FROM rental 
 	GROUP BY customer_id
-	ORDER BY COUNT(1) DESC
+	ORDER BY 2 DESC -- > 설렉트 구문(컬럼)에서 2번째기준으로 한다는 뜻이다.
 	LIMIT 1
 ) A
 INNER JOIN customer B
@@ -70,7 +70,7 @@ ORDER BY A.cnt;
 
 SELECT customer_id
 , MAX(amount), MIN(amount)
-, AVG(amount), SUM(amount) / COUNT(amount) 
+, AVG(amount), SUM(amount) / COUNT(amount) -- 평균값이 sql에서 오류가 많이 난다.
 FROM payment
 GROUP BY customer_id;
 
@@ -102,7 +102,7 @@ SELECT B.last_name, B.first_name, B.customer_id
 FROM(
 	SELECT DISTINCT customer_id
 	FROM rental
-	WHERE DATEDIFF(return_date, rental_date)=
+	WHERE DATEDIFF(return_date, rental_date) =
 		(
 			SELECT MAX(DATEDIFF(return_date, rental_date))
 			FROM rental
@@ -159,7 +159,7 @@ GROUP BY A.actor_id,B.category_id;
 -- 연도별 렌탈 횟수 궁금쓰...
 SELECT  CONCAT(year(rental_date),'년') AS `연도`,count(1) `갯수`
 FROM rental 
-GROUP BY `연도`;
+GROUP BY year(rental_date);
 
 -- 롤업생성
 SELECT fa.actor_id, f.rating, COUNT(1) AS cnt
@@ -170,22 +170,22 @@ GROUP BY fa.actor_id,f.rating WITH ROLLUP; -- actor_id의 PK값의 rating에는 
 -- null값의 의미는 PK값의 전체 합계이다.
 
 -- 배우의 등급('G', 'PG') 별 출연 횟수가 궁금함, 출연횟수가 9초과인 actor_id 궁금쓰
-SELECT A.actor_id, B.rating, COUNT(1) cnt
+SELECT A.actor_id, B.rating, COUNT(A.actor_id) cnt
 FROM film_actor A
 JOIN film B
 ON A.film_id = B.film_id
 WHERE B.rating IN('G','PG') 
 GROUP BY A.actor_id, B.rating 
 HAVING COUNT(1)>9
-ORDER BY cnt;
+ORDER BY COUNT(A.actor_id);
 -- 선생님 코드
-SELECT A.actor_id, B.rating, COUNT(1) cnt
+SELECT A.actor_id, B.rating, COUNT(A.actor_id) cnt
 FROM film_actor A
 JOIN film B
 ON A.film_id = B.film_id
 GROUP BY A.actor_id, B.rating 
 HAVING B.rating IN('G','PG') and COUNT(1)>9
-ORDER BY cnt;
+ORDER BY COUNT(A.actor_id);
 
 -- 8.5.1
 SELECT COUNT(1) FROM payment;
